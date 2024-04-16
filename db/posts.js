@@ -52,6 +52,21 @@ const getPostById = async (postId) => {
     }
     };
 
+    const getPostsByUser = async (userId) => {
+        try {
+            const { rows: posts } = await client.query(`
+            SELECT *
+            FROM posts
+            WHERE "userId"=$1;
+            `, [userId]);
+        
+            return posts;
+        } catch (error) {
+            console.error('ERROR Getting Posts by User!!!',error);
+            throw error;
+        }
+        };
+
 
 const updatePost = async ({ id, content }) => {
     try {
@@ -74,5 +89,6 @@ const updatePost = async ({ id, content }) => {
         createPost,
         getAllPosts,
         getPostById,
-        updatePost
+        updatePost,
+        getPostsByUser
     };
