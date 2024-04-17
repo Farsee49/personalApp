@@ -113,7 +113,7 @@ useEffect(()=>{
             element={<Users  />} />
 
             <Route path= '/posts'
-            element={<Posts />} />
+            element={<Posts user={user} navigate={navigate} />} />
       
         </Routes>
         </>

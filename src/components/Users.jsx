@@ -7,10 +7,19 @@ export default function Users () {
 
 
     async function getUsers(users){
+        try{
         const response = await getAllUsers(users);
         //console.log(response.data);
         setUsers(response.data);
+    } catch (error) {
+        console.log('Error in getUsers function');
+        console.error(error);
     }
+
+}
+    
+    
+    
     useEffect(() => {
        
         getUsers(users);

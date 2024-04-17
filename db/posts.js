@@ -4,20 +4,24 @@ const client = require('./client');
 
 
 
-const createPost = async ({ userId, content }) => {
+async function createPost({
+    authorId,
+    title,
+    content,
+    tags = []
+  }) {
     try {
-        const { rows: [ post ] } = await client.query(`
-        INSERT INTO posts("userId", content)
-        VALUES($1, $2)
+      const { rows: [ post ] } = await client.query(`
+        INSERT INTO posts("authorId", title, content) 
+        VALUES($1, $2, $3)
         RETURNING *;
-        `, [userId, content]);
-    
+      `, [authorId, title, content]);
+  
         return post;
     } catch (error) {
-        console.error('ERROR Creating Post!!!',error);
-        throw error;
+      throw error;
     }
-    };
+  };
 
 
 

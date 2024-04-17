@@ -39,7 +39,8 @@ const {
             
             CREATE TABLE posts (
                 id SERIAL PRIMARY KEY,
-                "userId" INTEGER REFERENCES users(id),
+                "authorId" INTEGER REFERENCES users(id),
+                title VARCHAR(255) NOT NULL,
                 content TEXT NOT NULL,
                 active BOOLEAN DEFAULT true
             );
@@ -74,11 +75,10 @@ const {
       async function createInitialPosts() {
         console.log("Starting to create posts...")
         try {
-          const postsToCreate = [
-            { userId: 1, content: "I love my new job!", active: true },
-            { userId: 2, content: "I love my new job!", active: true },
-            { userId: 3, content: "I love my new job!", active: true },
-            { userId: 4, content: "I love my new job!", active: true }
+         const postsToCreate = [
+            { authorId: 1, title: "First Post", content: "This is my first post. I hope I love it."},
+            { authorId: 2, title: "Second Post", content: "This is my second post. I hope I love it."},
+            { authorId: 3, title: "Third Post", content: "This is my third post. I hope I love it."}
           ]
           const posts = await Promise.all(postsToCreate.map(createPost))
       
@@ -93,6 +93,7 @@ const {
 
 
         async function rebuildDB() {
+          console.log('STARTING TO REBUILD DATABASE....');
             try{
                 await dropTables();
                 await createTables();
@@ -102,6 +103,7 @@ const {
                 console.error('ERROR REBUILDING DATABASE!!!', error);
                 throw error;
             }
+            console.log('FINISHED REBUILDING DATABASE....');
         };
 
         module.exports = {

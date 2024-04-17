@@ -1,17 +1,21 @@
-import React,{ useState} from "react";
+import React,{ useState, Fragment} from "react";
 import  { Button, TextField } from '@mui/material';
+
 
 import {login} from '../axios-services/users';
 
 
-export default function Login({setToken, navigate,isLoggedIn, setIsAdmin, isAdmin}) {
+export default function Login({
+    setToken,
+     navigate,
+     isLoggedIn,
+      setIsAdmin,
+       isAdmin
+    }) {
   
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
    
-
-   
-
    async function handleSubmit(ev) {
     ev.preventDefault()
 
@@ -57,9 +61,10 @@ export default function Login({setToken, navigate,isLoggedIn, setIsAdmin, isAdmi
              
         </form>
      
-        {isLoggedIn ? <h2>Log In Successful!</h2> : null}
-       
-        </>
-    )
+        {isLoggedIn ?  <h2>Log In Successful!</h2> : null}
+
+       </>)
+      
+    
     
 }

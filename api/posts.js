@@ -8,7 +8,8 @@ const bodyParser = require("body-parser");
 
 
 const {
-    createPost
+    createPost,
+    getAllPosts
     } = require('../db');
 
 
@@ -25,30 +26,39 @@ postsRouter.use( (req, res, next) => {
 
 // POST /api/posts
 
-postsRouter.post('/',requireUser, async (req, res, next) => {
-    const { isPublic, name, goal } = req.body;
-   console.log(req.user);
-   //console.log(user)
-    // if (!user) {
-    //   res.send({
-    //     error: 'No user found',
-    //     message: UnauthorizedError(),
-    //     name: 'Unauthorized Error'
-    //   })
-    // }
-    // try {
-    //   const newRoutine = await cre({
-    //     creatorId: req.user.id, 
-    //     isPublic: isPublic,
-    //     name: name,
-    //     goal: goal
-    //   });
-    //   res.send(newRoutine);
-    // }catch ({name, message}) {
-    //   next({name, message})
-    // }
+postsRouter.post('/', async (req, res, next) => {
+    const { authorId, title, content } = req.body;
+    console.log(req.body);
+    const postData = req.body;
+    
+    try {
+      const post = await createPost(postData);
+      
+      if (post) {
+        console.log(post);
+        res.send({ post });
+      } else {
+        next({
+          name: 'CreatePostError',
+          message: 'There was an error creating this post!'
+        });
+      };
+    } catch ({ name, message }) {
+      next({ name, message });
+    }
   });
 
+
+  postsRouter.get('/', async (req, res, next) => {
+    try {
+    const posts = await getAllPosts();
+    res.send({
+      posts
+    });
+} catch ({name, message}) {
+    next({name, message})
+  };
+});
 
 
 module.exports = postsRouter;
