@@ -4,7 +4,7 @@
 
 const express = require("express");
 const usersRouter = express.Router();
-const { requireUser } = require('./utils')
+//const { requireUser } = require('./utils')
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = process.env;
 const bcrypt = require('bcrypt');
@@ -150,30 +150,26 @@ usersRouter.get('/allusers', async (req, res) => {
 
 
 //=====================================================================
-//GET /api/users/:username/routines
-// usersRouter.get('/:username/routines', async (req, res, next) => {
-//      const {username} = req.params
-//      const user = req.user;
-//  // console.log(user)
-//      const prefix = 'Bearer ';
-//      const auth = req.header('Authorization');
-//      try {
-//       if (user ) {
-//       const userPublicRoutines = await getPublicRoutinesByUser({ username });
-//       res.send(userPublicRoutines);
-//        } 
-//     else if (auth.startsWith(prefix)) {
-//       const token = auth.slice(prefix.length);
-//       const { id } = jwt.verify(token, JWT_SECRET);
-//       if (id) {
-//         const userAllRoutines = await getAllRoutinesByUser({ username });
-//         res.send(userAllRoutines);
-//       }
-//     }
-//   } catch ({name, message}) {
-//     next({name, message})
-// }
-// });
+
+//DELETE /api/users/:userId
+usersRouter.delete('/:userId', async (req, res, next) => {
+  const { userId } = req.params;
+  try {
+    const user = await getUserById(userId);
+    if (user) {
+      const deletedUser = await deleteUser(userId);
+      res.send(deletedUser);
+    } else {
+      res.send({
+        error: 'UserNotFound',
+        name: 'UserNotFound',
+        message: 'User not found.',
+      });
+    }
+  } catch ({name, message}) {
+    next({name, message})
+  }
+});
 
 
 module.exports = usersRouter;

@@ -16,8 +16,7 @@ const {
     } = require('../db');
 
 
-
-
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 postsRouter.use(bodyParser.json());
 postsRouter.use( (req, res, next) => {
@@ -98,11 +97,16 @@ postsRouter.patch('/:postId', async (req, res, next) => {
 
 postsRouter.delete('/:postId', async (req, res, next) => {
     const { postId } = req.params;
+    //console.log(postId);
     try {
         const post = await getPostById(postId);
+        console.log(post)
         if (post) {
-            const updatedPost = await updatePost({ id: postId, active: false });
-            res.send(updatedPost);
+            const deletedPost = await deletePost(postId);
+            res.send( {
+          deletedPost,      message: 'Post deleted!',          
+        });
+        
         } else {
             next({
                 name: 'DeletePostError',

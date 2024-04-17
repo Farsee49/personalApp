@@ -6,10 +6,6 @@ import {   getAllPosts } from "../axios-services/posts";
 
 
 
-
- 
-
-
 export default function Posts({
     user,
     navigate,
@@ -18,27 +14,10 @@ export default function Posts({
     }) {
     const [posts, setPosts] = useState([]);
    
-    //const [userId, setUserId] = useState('');
+    
    
     console.log(user.id)
     console.log(singlePost)
-    
-
-
-    // async function getPosts() {
-    //     try {
-    //         const response = await getAllPosts(posts);
-    //         //console.log(response.data);
-    //         setPosts(response.data.posts);
-    //     } catch (error) {
-    //         console.log('Error in getPosts function');
-    //         console.error(error);
-    //     }
-        
-    // }
-
-
-
 
     useEffect(() => {
         
@@ -58,7 +37,7 @@ export default function Posts({
     },[])
     
     function PostTitle({ title }) {
-        return <h1>Title:{title}</h1>;
+        return <h2>Title:{title}</h2>;
       }
       
       function PostBody({ body }) {
@@ -82,8 +61,7 @@ export default function Posts({
     </Fragment>
     )}
             
-
-      
+  
    </> )
 }
 

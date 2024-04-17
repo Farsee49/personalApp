@@ -3,7 +3,11 @@ const client = require("./client");
 const bcrypt = require("bcrypt");
 // database functions
 
-// user functions
+//<<<<<<<<<<<<<<<<<<<USERS DATABASE FUNCTIONS>>>>>>>>>>>>>>>>>>>>>>>
+
+
+//_______________________CREATE USER_______________________________
+
 async function createUser({ username, password, name, location}) {
   const SALT_COUNT = 10;
 
@@ -25,11 +29,14 @@ async function createUser({ username, password, name, location}) {
   }
 };
 
+//_______________________GET USER_______________________________
+
 async function getUser({ username, password }) {
   try {
     const user = await getUserByUsername(username);
-    // const hashedPwd = user.password;
-    // const passwordsMatch = await bcrypt.compare(password, hashedPwd);
+    console.log('USER:',user)
+    const hashedPwd = user.password;
+    const passwordsMatch = await bcrypt.compare(password, hashedPwd);
     if (user.password) {
     delete user.password;
       return user;
@@ -38,7 +45,9 @@ async function getUser({ username, password }) {
     console.error('ERROR Getting User!!!',error);
     throw error;
   }
-}
+};
+
+//_______________________GET USER BY ID_______________________________
 
 async function getUserById(userId) {
   try {
@@ -56,6 +65,7 @@ async function getUserById(userId) {
       throw error;
   }
 };
+//_______________________GET USER BY USERNAME_______________________________
 
 async function getUserByUsername(username) {
   try {
@@ -73,6 +83,8 @@ async function getUserByUsername(username) {
 }
 };
 
+//_______________________GET ALL USERS_______________________________
+
 async function getAllUsers(users) {
   try {
     const { rows } = await client.query(`
@@ -86,6 +98,8 @@ async function getAllUsers(users) {
     throw error;
   }
 };
+
+//_______________________DELETE USER_______________________________
 
 async function deleteUser(id) {
   try {
@@ -102,6 +116,8 @@ async function deleteUser(id) {
     throw error;
   }
 };
+
+//_______________________EXPORT MODULE_______________________________
 
 module.exports = {
   createUser,

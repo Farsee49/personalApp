@@ -11,9 +11,11 @@ import { getAllPosts } from "../axios-services/posts";
     Home,
     Register,
     CreatePost,
-    SinglePost
+    SinglePost,
+    SingleUser
  } from "./"
 import { getCurrentUser } from "../axios-services/users";
+
 
 
 
@@ -22,6 +24,7 @@ export default function App (){
     const [posts, setPosts] = useState([]);
     const [singlePost, setSinglePost] = useState('');
     const [user, setUser] = useState('');
+    const [singleUser, setSingleUser] = useState('');
     const [isAdmin, setIsAdmin] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const navigate = useNavigate();
@@ -70,10 +73,10 @@ export default function App (){
      
      
 
-useEffect((posts) => {
+useEffect(() => {
         tokenCheck();
         getApiHealth();
-        getEveryPost(posts);
+        // getEveryPost(posts);
 
      },[]);
 
@@ -84,6 +87,10 @@ useEffect(()=>{
         //console.log(response.data);
         setUser(response.data);
         setIsLoggedIn(true);
+        if(response.data.username === 'admin') {
+            setIsAdmin(true);
+        }
+        getEveryPost(posts);
             }).catch((error) => {
                 console.log(error);
             })
@@ -122,26 +129,46 @@ useEffect(()=>{
             isLoggedIn={isLoggedIn} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>} />
           
             <Route path= '/register'
-            element={<Register setToken={setToken} navigate={navigate}
-            setIsAdmin={setIsAdmin} isAdmin={isAdmin} />} />
+                element={<Register  
+                setToken={setToken}
+                navigate={navigate}
+                setIsAdmin={setIsAdmin} 
+                isAdmin={isAdmin} />} />
 
             <Route path= '/home'
-            element={<Home />} />
+                element={<Home />} />
 
             <Route path= '/users'
-            element={<Users  />} />
+                element={<Users 
+                navigate={navigate} 
+                singleUser={singleUser}
+                setSingleUser={setSingleUser} />} />
+
+            <Route path= 'single-user/:userId'
+                element={<SingleUser 
+                user={user} 
+                navigate={navigate}
+                singleUser={singleUser}
+                setSingleUser={setSingleUser} />} />
 
             <Route path= '/posts'
-            element={<Posts user={user} navigate={navigate}
-            singlePost={singlePost} setSinglePost={setSinglePost}/>} />
+                element={<Posts user={user} 
+                navigate={navigate}
+                singlePost={singlePost} 
+                setSinglePost={setSinglePost}/>} />
 
             <Route path= '/createpost'
-            element={<CreatePost user={user} navigate={navigate}
-            singlePost={singlePost} setSinglePost={setSinglePost} />} />
+                element={<CreatePost 
+                user={user} 
+                navigate={navigate}
+                singlePost={singlePost} 
+                setSinglePost={setSinglePost} />} />
 
             <Route path= '/single-post/:postId'
-            element={<SinglePost user={user} navigate={navigate}
-            singlePost={singlePost} />} />
+                element={<SinglePost 
+                user={user} 
+                navigate={navigate}
+                singlePost={singlePost} />} />
 
       
         </Routes>

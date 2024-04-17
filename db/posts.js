@@ -41,6 +41,7 @@ const getAllPosts = async () => {
 
 //==================Get Post by Id==================
 const getPostById = async (postId) => {
+    console.log(postId)
     try {
         const { rows: [ post ] } = await client.query(`
         SELECT *
@@ -102,6 +103,7 @@ const deletePost = async (postId) => {
     } 
 };
 
+//==================Export Module==================
 
     module.exports = {
         createPost,

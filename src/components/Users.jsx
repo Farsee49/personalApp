@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import { getAllUsers } from "../axios-services/users";
+import { Button } from '@mui/material';
 
 
-export default function Users () {
+
+export default function Users ({navigate,setSingleUser}) {
     const [users, setUsers] = useState([]);
+  
+   
 
 
     async function getUsers(users){
@@ -17,6 +21,14 @@ export default function Users () {
     }
 
 }
+
+    function UserTitle({ name }) {
+        return <h2>{name}</h2>;
+      }
+
+    // function UserBody({ body }) {
+    //     return <p>{body}</p>;
+    //   }
     
     
     
@@ -26,15 +38,23 @@ export default function Users () {
        
      
     },[])
+console.log(users)
+    return (<>
 
-    return (
-        <div>
-            <h1>Users</h1>
-            <ul>
-                {users.map(user => (
-                    <li key={user.id}>{user.username}</li>
-                ))}
-            </ul>
-        </div>
-    )
+       
+        <h2>Users</h2>
+        {users.map(user =>
+            <Fragment key={user.id}>
+                <UserTitle name={user.username} />
+                <Button variant='outlined' size='small' onClick ={ () => {
+                    setSingleUser(user)
+                    navigate(`/single-user/${user.id}`)
+                }}>User Info</Button>
+            </Fragment>    
+        )}
+   </> )
 }
+
+
+  
+            

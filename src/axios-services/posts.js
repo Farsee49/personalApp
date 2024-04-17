@@ -3,9 +3,11 @@ import axios from "axios";
 
 
 
-//=============CRUD OPERATIONS FOR POSTS===================
+//=============AXIOS OPERATIONS FOR POSTS===================
 
-//Create a new post
+
+//_________________________CREATE POST_________________________
+
 export async function newPost(postData) {
   const postUrl = "http://localhost:3000/api/posts";
   console.log(postData)
@@ -19,7 +21,8 @@ export async function newPost(postData) {
   }
 }
 
-//Get all posts
+//_________________________GET ALL POSTS_________________________
+
 export async function getAllPosts () {
   const allPostsUrl = "http://localhost:3000/api/posts";
   
@@ -32,7 +35,8 @@ export async function getAllPosts () {
   }
 }
 
-//Get post by Id
+//_________________________GET POST BY ID_________________________  
+
 export async function getPostById (postId) {
   const postUrl = `http://localhost:3000/api/posts/${postId}`;
   
@@ -45,7 +49,8 @@ export async function getPostById (postId) {
   }
 }
 
-//Update a post
+//_________________________GET POSTS BY USER_________________________
+
 export async function updatePost (postId, content) {
   const postUrl = `http://localhost:3000/api/posts/${postId}`;
   
@@ -58,8 +63,10 @@ export async function updatePost (postId, content) {
   }
 }
 
-//Delete a post
+//_________________________DELETE POST_________________________
+
 export async function deletePost (postId) {
+  console.log(postId)
   const postUrl = `http://localhost:3000/api/posts/${postId}`;
   
   try{

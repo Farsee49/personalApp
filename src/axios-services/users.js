@@ -1,9 +1,10 @@
 
 import axios from 'axios';
-// const COHORT_NAME = '2301-ftb-et-web-pt'
-// const BASE_URL = `https://strangers-things.herokuapp.com/api/${COHORT_NAME}`;
-// const MAIN_URL = "http://localhost:3000/api";
 
+//---------------------Axios User Services---------------------
+
+
+//_________________________REGISTER USER_________________________
 
 export async function registerUser(user) {
   const registerUrl = "http://localhost:3000/api/users/register";
@@ -19,6 +20,7 @@ export async function registerUser(user) {
 }
 
 
+//_________________________LOGIN USER_________________________
 
 export async function login(user) {
   const loginUrl = "http://localhost:3000/api/users/login";
@@ -26,12 +28,14 @@ export async function login(user) {
 
   try{
   const response = await axios.post(loginUrl, user);
-  console.log('Login successful', response.data);
+ // console.log('Login successful', response.data);
   return response;
   } catch (error) {
     console.error(error);
   }
 }
+
+//_________________________GET CURRENT USER_________________________
 
 export async function getCurrentUser (token) {
   const currentUserUrl = "http://localhost:3000/api/users/me";
@@ -48,11 +52,27 @@ export async function getCurrentUser (token) {
   }
 }
 
+//_________________________GET USER BY ID_________________________
+
 export async function getAllUsers () {
   const allUsersUrl = "http://localhost:3000/api/users/allusers";
   try{
     const response = await axios.get(allUsersUrl);
     //console.log('All Users', response.data);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+//_________________________DELETE USER_________________________
+
+export async function deleteUser (userId) {
+  
+  const deleteUrl = `http://localhost:3000/api/users/${userId}`;
+  try{
+    const response = await axios.delete(deleteUrl, userId);
+    console.log('User Deleted', response.data);
     return response;
   } catch (error) {
     console.error(error);
