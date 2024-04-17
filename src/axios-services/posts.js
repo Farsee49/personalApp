@@ -45,5 +45,31 @@ export async function getPostById (postId) {
   }
 }
 
+//Update a post
+export async function updatePost (postId, content) {
+  const postUrl = `http://localhost:3000/api/posts/${postId}`;
+  
+  try{
+    const response = await axios.patch(postUrl, {content});
+    console.log('Post updated', response.data);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+//Delete a post
+export async function deletePost (postId) {
+  const postUrl = `http://localhost:3000/api/posts/${postId}`;
+  
+  try{
+    const response = await axios.delete(postUrl);
+    console.log('Post deleted', response.data);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 
 

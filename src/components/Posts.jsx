@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect} from "react";
-
+//import { Link } from "react-router-dom";
+import  { Button } from '@mui/material';
 import {   getAllPosts } from "../axios-services/posts";
 
 
@@ -9,12 +10,18 @@ import {   getAllPosts } from "../axios-services/posts";
  
 
 
-export default function Posts({user, navigate}) {
+export default function Posts({
+    user,
+    navigate,
+    singlePost,
+   setSinglePost
+    }) {
     const [posts, setPosts] = useState([]);
    
     //const [userId, setUserId] = useState('');
    
     console.log(user.id)
+    console.log(singlePost)
     
 
 
@@ -68,6 +75,10 @@ export default function Posts({user, navigate}) {
     <Fragment key={post.id}>
       <PostTitle title={post.title} />
       <PostBody body={post.content} />
+     <Button onClick ={ () => {
+            setSinglePost(post)
+            navigate(`/single-post/${post.id}`)
+     }}>SinglePost</Button>
     </Fragment>
     )}
             

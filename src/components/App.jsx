@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import { Link, Routes, Route, useNavigate } from "react-router-dom";
  import  { Button } from '@mui/material';
  import { getApiHealth } from "../axios-services/index";
+import { getAllPosts } from "../axios-services/posts";
 
  import {
     Login,
@@ -9,7 +10,8 @@ import { Link, Routes, Route, useNavigate } from "react-router-dom";
     Posts,
     Home,
     Register,
-    CreatePost
+    CreatePost,
+    SinglePost
  } from "./"
 import { getCurrentUser } from "../axios-services/users";
 
@@ -17,6 +19,8 @@ import { getCurrentUser } from "../axios-services/users";
 
 export default function App (){
     const [token, setToken] = useState('');
+    const [posts, setPosts] = useState([]);
+    const [singlePost, setSinglePost] = useState('');
     const [user, setUser] = useState('');
     const [isAdmin, setIsAdmin] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -25,6 +29,7 @@ export default function App (){
     console.log(isLoggedIn)
     console.log(user)
     console.log(isAdmin)
+    console.log(posts)
 
  
    
@@ -40,6 +45,16 @@ export default function App (){
         }
     }
 
+    async function getEveryPost(posts){
+        try {
+            const response = await getAllPosts(posts);
+            console.log(response.data);
+            setPosts(response.data.posts);
+        } catch (error) {
+            console.log('Error in getPosts function');
+            console.error(error);
+        }
+    }
 
      function logout(){
         try {
@@ -55,9 +70,10 @@ export default function App (){
      
      
 
-useEffect(() => {
+useEffect((posts) => {
         tokenCheck();
         getApiHealth();
+        getEveryPost(posts);
 
      },[]);
 
@@ -116,10 +132,17 @@ useEffect(()=>{
             element={<Users  />} />
 
             <Route path= '/posts'
-            element={<Posts user={user} navigate={navigate} />} />
+            element={<Posts user={user} navigate={navigate}
+            singlePost={singlePost} setSinglePost={setSinglePost}/>} />
 
             <Route path= '/createpost'
-            element={<CreatePost user={user} navigate={navigate} />} />
+            element={<CreatePost user={user} navigate={navigate}
+            singlePost={singlePost} setSinglePost={setSinglePost} />} />
+
+            <Route path= '/single-post/:postId'
+            element={<SinglePost user={user} navigate={navigate}
+            singlePost={singlePost} />} />
+
       
         </Routes>
         </>
