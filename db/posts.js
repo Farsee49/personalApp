@@ -3,7 +3,7 @@ const client = require('./client');
 
 
 
-
+//==================Create Post==================
 async function createPost({
     authorId,
     title,
@@ -23,8 +23,7 @@ async function createPost({
     }
   };
 
-
-
+//==================Get All Posts==================
 const getAllPosts = async () => {
     try {
         const { rows: posts } = await client.query(`
@@ -40,7 +39,7 @@ const getAllPosts = async () => {
     }
     };
 
-
+//==================Get Post by Id==================
 const getPostById = async (postId) => {
     try {
         const { rows: [ post ] } = await client.query(`
@@ -55,23 +54,23 @@ const getPostById = async (postId) => {
         throw error;
     }
     };
-
+//==================Get Posts by User==================
     const getPostsByUser = async (userId) => {
-        try {
-            const { rows: posts } = await client.query(`
-            SELECT *
-            FROM posts
-            WHERE "userId"=$1;
-            `, [userId]);
-        
-            return posts;
-        } catch (error) {
-            console.error('ERROR Getting Posts by User!!!',error);
-            throw error;
-        }
-        };
+    try {
+        const { rows: posts } = await client.query(`
+        SELECT *
+        FROM posts
+        WHERE "userId"=$1;
+        `, [userId]);
+    
+        return posts;
+    } catch (error) {
+        console.error('ERROR Getting Posts by User!!!',error);
+        throw error;
+   }
+};
 
-
+//==================Update Post==================
 const updatePost = async ({ id, content }) => {
     try {
         const { rows: [ post ] } = await client.query(`
@@ -86,7 +85,22 @@ const updatePost = async ({ id, content }) => {
         console.error('ERROR Updating Post!!!',error);
         throw error;
     }
-    };
+};
+//==================Delete Post==================
+const deletePost = async (postId) => {
+    try {
+        const { rows: [ post ] } = await client.query(`
+        DELETE FROM posts
+        WHERE id=$1
+        RETURNING *;
+        `, [postId]);
+    
+        return post;
+    } catch (error) {
+        console.error('ERROR Deleting Post!!!',error);
+            throw error;
+    } 
+};
 
 
     module.exports = {
@@ -94,5 +108,6 @@ const updatePost = async ({ id, content }) => {
         getAllPosts,
         getPostById,
         updatePost,
-        getPostsByUser
+        getPostsByUser,
+        deletePost
     };

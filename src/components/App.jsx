@@ -8,9 +8,11 @@ import { Link, Routes, Route, useNavigate } from "react-router-dom";
     Users,
     Posts,
     Home,
-    Register
+    Register,
+    CreatePost
  } from "./"
 import { getCurrentUser } from "../axios-services/users";
+
 
 
 export default function App (){
@@ -84,6 +86,7 @@ useEffect(()=>{
         <>{isLoggedIn ? <> 
         { isAdmin ? <Link to='/users'><Button variant="contained" size="small">Users</Button></Link> : null }
         <Link to='/posts'><Button variant="contained" size="small">Posts</Button></Link>
+        <Link to='/createpost'><Button variant="contained" size="small">Create Post</Button></Link>
         <Link to='/home'><Button variant="contained" size="small"> Home</Button></Link>
         <Button variant="contained" size="small" onClick={logout}>Logout</Button>
         </>:<>
@@ -114,6 +117,9 @@ useEffect(()=>{
 
             <Route path= '/posts'
             element={<Posts user={user} navigate={navigate} />} />
+
+            <Route path= '/createpost'
+            element={<CreatePost user={user} navigate={navigate} />} />
       
         </Routes>
         </>
