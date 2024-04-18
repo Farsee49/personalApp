@@ -43,7 +43,7 @@ export default function EditPost({editPost, navigate}) {
         </div>
        
     <section>
-        
+        <h5>{editPost.id}</h5>
         <h2>{editPost.title}</h2>
         <form onSubmit={handleSubmit}>
         <TextField id="string"  variant="outlined"
