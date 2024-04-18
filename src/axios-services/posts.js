@@ -3,6 +3,7 @@ import axios from "axios";
 
 
 
+
 //=============AXIOS OPERATIONS FOR POSTS===================
 
 
@@ -49,14 +50,31 @@ export async function getPostById (postId) {
   }
 }
 
-//_________________________GET POSTS BY USER_________________________
+//__________________________UPDATE POST_________________________
 
-export async function updatePost (postId, content) {
+export async function updatePost (postId, editData   ) {
+  console.log(postId)
+  
   const postUrl = `http://localhost:3000/api/posts/${postId}`;
   
   try{
-    const response = await axios.patch(postUrl, {content});
+    console.log('data:', editData)
+    const response = await axios.patch(postUrl, editData);
     console.log('Post updated', response.data);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+//_________________________GET POSTS BY USER_________________________
+
+export async function getPostsByUser (userId) {
+  const postUrl = `http://localhost:3000/api/posts/user/${userId}`;
+  
+  try{
+    const response = await axios.get(postUrl);
+    console.log('Posts by User', response.data);
     return response;
   } catch (error) {
     console.error(error);

@@ -5,7 +5,7 @@ import { deletePost } from "../axios-services/posts";
 
 
 
-export default function SinglePost({singlePost, navigate}) {
+export default function SinglePost({singlePost, navigate, setEditPost}) {
     const { postId } = useParams();
     console.log(postId)
     console.log(singlePost)
@@ -19,5 +19,11 @@ export default function SinglePost({singlePost, navigate}) {
                    deletePost(postId)
                     navigate(`/posts`)
                 }}>Delete Post</Button>
+
+    <Button onClick ={ () => {
+                    setEditPost(singlePost)
+                    navigate(`/edit-post/${postId}`)
+                }
+                }>Edit Post</Button>
    </> )
 }

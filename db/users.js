@@ -117,7 +117,7 @@ async function deleteUser(id) {
   }
 };
 
-//_______________________EXPORT MODULE_______________________________
+
 
 module.exports = {
   createUser,

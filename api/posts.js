@@ -13,7 +13,7 @@ const {
     getPostById,
     updatePost,
     deletePost
-    } = require('../db');
+    } = require('../db/posts');
 
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -80,17 +80,47 @@ postsRouter.get('/:postId', async (req, res, next) => {
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // PATCH /api/posts/:postId == update a post
 
-postsRouter.patch('/:postId', async (req, res, next) => {
-    const { postId } = req.params;
-    const { content } = req.body;
-    try {
-        const updatedPost = await updatePost({ id: postId, content });
-        res.send(updatedPost);
-    } catch ({ name, message }) {
-        next({ name, message });
-    }
-    });
+postsRouter.patch('/:postId',  async (req, res, next) => {
+  const { postId } = req.params;
+  console.log('postId api patch:',postId);
+ 
+ try {
+  const { title, content } = req.body;
+  const updateFields = {postId};
 
+  // if (postId) {
+  //   updateFields.id = postId;
+  // }
+  if (title) {
+    updateFields.title = title;
+  }
+  if (content) {
+    updateFields.content = content;
+  }
+
+  // const post = await getPostById(postId);
+  // const activityByName = await getActivityByName(name);
+
+  // if (!activityById) {
+  //   res.send({
+  //     error: 'ActivityDoesNotExists',
+  //     name: 'Activity does not exists',
+  //     message: ActivityNotFoundError(activityId),
+  //   });
+  // } else if (activityByName) {
+  //   res.send({
+  //     error: 'ActivityAlreadyExists',
+  //     name: 'Activity already exists',
+  //     message: ActivityExistsError(activityByName.name),
+  //   });
+  // } else {
+    const updatedPost = await updatePost(updateFields);
+    res.send(updatedPost);
+  // }
+} catch ({ name, message }) {
+  next({ name, message });
+}
+});
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // DELETE /api/posts/:postId == delete a post

@@ -1,3 +1,4 @@
+const { post } = require('../api/users');
 const client = require('./client');
 
 
@@ -72,21 +73,30 @@ const getPostById = async (postId) => {
 };
 
 //==================Update Post==================
-const updatePost = async ({ id, content }) => {
-    try {
-        const { rows: [ post ] } = await client.query(`
+async function updatePost({postId, ...fields}) {
+    console.log("updatePost db:",postId)
+    console.log('fields:', fields)
+    const setString = Object.keys(fields).map(
+      (key, index) => `"${key}"=$${index + 1}`
+      ).join(',') 
+      try {
+      if (setString.length > 0){
+        console.log('setString:', setString)
+        await client.query(`
         UPDATE posts
-        SET content=$2
-        WHERE id=$1
+        SET ${setString}
+        WHERE id = ${postId}
         RETURNING *;
-        `, [id, content]);
-    
-        return post;
-    } catch (error) {
-        console.error('ERROR Updating Post!!!',error);
-        throw error;
+        `, Object.values(fields)) 
+      }
+   
+       return await getPostById(postId)
+    }catch(error){
+      console.error('ERROR Updating Post at database updatePost!!!',error);
+      throw error;
     }
-};
+  };
+
 //==================Delete Post==================
 const deletePost = async (postId) => {
     try {

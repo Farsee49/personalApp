@@ -11,6 +11,7 @@ import { getAllPosts } from "../axios-services/posts";
     Home,
     Register,
     CreatePost,
+    EditPost,
     SinglePost,
     SingleUser
  } from "./"
@@ -25,6 +26,7 @@ export default function App (){
     const [singlePost, setSinglePost] = useState('');
     const [user, setUser] = useState('');
     const [singleUser, setSingleUser] = useState('');
+    const [editPost, setEditPost] = useState('');
     const [isAdmin, setIsAdmin] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const navigate = useNavigate();
@@ -166,9 +168,18 @@ useEffect(()=>{
 
             <Route path= '/single-post/:postId'
                 element={<SinglePost 
+                user={user}
+                isAdmin={isAdmin} 
+                navigate={navigate}
+                singlePost={singlePost}
+                editPost={editPost}
+                setEditPost={setEditPost} />} />
+
+            <Route path= '/edit-post/:postId'
+                element={<EditPost 
                 user={user} 
                 navigate={navigate}
-                singlePost={singlePost} />} />
+                editPost={editPost} />} />    
 
       
         </Routes>

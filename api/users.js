@@ -16,7 +16,7 @@ const {
   getUserById,
   getAllUsers,
   deleteUser
-} = require('../db');
+} = require('../db/users');
 
 // const { UserTakenError, 
 //   PasswordTooShortError,
@@ -34,6 +34,7 @@ usersRouter.use((req, res, next) => {
 
 
 //=====================================================================
+
 // POST /api/users/register
 usersRouter.post('/register', async (req, res, next) => {
   //console.log('AT REGISTER ')
@@ -77,6 +78,7 @@ usersRouter.post('/register', async (req, res, next) => {
   });
 
 //=====================================================================
+
 // POST /api/users/login
 usersRouter.post('/login', async (req, res, next) => {
   const { username, password } = req.body;
@@ -111,6 +113,7 @@ usersRouter.post('/login', async (req, res, next) => {
 })
 
 //=====================================================================
+
 // GET /api/users/me
 usersRouter.get('/me', async (req, res, next) => {
   const prefix = 'Bearer ';
@@ -136,7 +139,10 @@ usersRouter.get('/me', async (req, res, next) => {
     }
   }
 });
+
+
 //=====================================================================
+
 //GET /api/users
 usersRouter.get('/allusers', async (req, res) => {
   try {
