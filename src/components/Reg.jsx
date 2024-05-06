@@ -2,7 +2,9 @@
 
 
 import React, { useState } from "react";
-import  { Button,TextField } from '@mui/material';
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import { registerUser } from "../axios-services/users";
 
 export default function Register({setToken, navigate, isAdmin, setIsAdmin}){
@@ -34,29 +36,69 @@ export default function Register({setToken, navigate, isAdmin, setIsAdmin}){
     return(
         <>
         <h1>Register</h1>
+        <Container>
         <form onSubmit={handleSubmit}>
-        <TextField id="filled-basic"  variant="standard"
-            type ='text'
-            placeholder="Username"
-            onChange={(ev)=> setUsername(ev.target.value)}
-          />
-         <TextField id="filled-basic"  variant="standard"
-            type ='text'
-            placeholder="Password"
-            onChange={(ev)=> setPassword(ev.target.value)}
-          />
-         <TextField id="filled-basic"  variant="standard"
-            type ='text'
-            placeholder="Name"
-            onChange={(ev)=> setName(ev.target.value)}
-          />
-         <TextField id="filled-basic"  variant="standard"
-            type ='text'
-            placeholder="Location"
-            onChange={(ev)=> setLocation(ev.target.value)}
-          />
-            <Button  type='submit' variant='contained'size='small'>SUBMIT</Button>
-        </form>
+      <Form.Label htmlFor="inputUsername">Username</Form.Label>
+      <Form.Control
+        type="text"
+        id="inputUsername"
+        aria-describedby="usernameHelpBlock"
+        onChange={(ev)=> setUsername(ev.target.value)}
+      />
+      <Form.Label htmlFor="inputPassword5">Password</Form.Label>
+      <Form.Control
+        type="password"
+        id="inputPassword5"
+        aria-describedby="passwordHelpBlock"
+        onChange={(ev)=> setPassword(ev.target.value)}
+      />
+      
+      <Form.Label htmlFor="inputName">Name</Form.Label>
+      <Form.Control
+        type="text"
+        id="inputName"
+        aria-describedby="nameHelpBlock"
+        onChange={(ev)=> setName(ev.target.value)}  
+      />
+      <Form.Label htmlFor="inputLocation">Location</Form.Label>
+      <Form.Control
+        type="text"
+        id="inputLocation"
+        aria-describedby="locationHelpBlock"
+        onChange={(ev)=> setLocation(ev.target.value)}
+      />
+      
+      
+      <Button type="submit" className="btn btn-primary">Submit</Button>
+      </form>
+    </Container>
       </>
     )   
 }
+
+
+
+
+{/* <form onSubmit={handleSubmit}>
+<TextField id="filled-basic"  variant="standard"
+    type ='text'
+    placeholder="Username"
+    onChange={(ev)=> setUsername(ev.target.value)}
+  />
+ <TextField id="filled-basic"  variant="standard"
+    type ='text'
+    placeholder="Password"
+    onChange={(ev)=> setPassword(ev.target.value)}
+  />
+ <TextField id="filled-basic"  variant="standard"
+    type ='text'
+    placeholder="Name"
+    onChange={(ev)=> setName(ev.target.value)}
+  />
+ <TextField id="filled-basic"  variant="standard"
+    type ='text'
+    placeholder="Location"
+    onChange={(ev)=> setLocation(ev.target.value)}
+  />
+    <Button  type='submit' variant='contained'size='small'>SUBMIT</Button>
+</form> */}

@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from "react";
-import { Link, Routes, Route, useNavigate } from "react-router-dom";
- import  { Button } from '@mui/material';
- import { getApiHealth } from "../axios-services/index";
+import {  Routes, Route, useNavigate } from "react-router-dom";
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import Container from 'react-bootstrap/Container';
+import { getApiHealth } from "../axios-services/index";
 import { getAllPosts } from "../axios-services/posts";
 
  import {
@@ -17,6 +19,7 @@ import { getAllPosts } from "../axios-services/posts";
     Variants
  } from "./"
 import { getCurrentUser } from "../axios-services/users";
+
 
 
 
@@ -62,16 +65,19 @@ export default function App (){
         }
     }
 
-     function logout(){
+    function   logout(){
+
         try {
+            
         setToken("")
         setIsLoggedIn(false)
         window.localStorage.removeItem("token")
-        navigate("/home")
+        navigate(window.location.href="/login")
     } catch (error) {
         console.log('Error in logout function');
         console.error(error);
     }
+    
     }
      
      
@@ -100,29 +106,74 @@ useEffect(()=>{
         }         
     },[token]);
 
+  function Navhead() {
+    return(
+    <>
+    {isLoggedIn ? <> 
+        <Navbar id="navLin"  sticky="top" data-bs-theme="dark" expand="lg">
+        <Container>
+        <Navbar.Brand href="#home">CF</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+            { isAdmin ?  <Nav.Link href="/users">Users</Nav.Link>: null }
+            <Nav.Link href="/home">Home</Nav.Link>
+            <Nav.Link href="/posts">Posts</Nav.Link>
+            <Nav.Link href="/createpost">Create Post</Nav.Link>
+            <Nav.Link  onClick={logout}>Log Out</Nav.Link>
+           
+            </Nav>
+        </Navbar.Collapse>
+            
+                </Container>
+            </Navbar>
+            </>:<> 
+        <Navbar id="navLout"  sticky="top" data-bs-theme="dark" expand="lg">
+        <Container>
+        <Navbar.Brand href="#home">CF</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+            <Nav.Link href="/login">Login</Nav.Link>
+            <Nav.Link href="/register">Register</Nav.Link>
+           
+            
+            </Nav>
+        </Navbar.Collapse>
+            
+                </Container>
+            </Navbar>
+            </>}
+            </>
+            )
+        }
+
+    function Foot() {
+        return (
+            <>
+            
+            <Navbar id="foot1" className="mt-5"  data-bs-theme="dark" expand="lg">
+            <Container>
+              <Navbar.Brand>&copy;CF</Navbar.Brand>
+            </Container>
+          </Navbar>
+            
+            </>
+        )
+    }
+    
 
     return (<>
 
-    <header> 
-        <h1>My App</h1>
-        {isLoggedIn ? <h2>Welcome {user.username}</h2> : null}
-        {isLoggedIn ? <h2>Logged In</h2> : null}
+    <header>
+        <Navhead /> 
         <></>
+        {/* <h1 class="text-center">My App</h1> */}
+        {/* {isLoggedIn ? <h2 class="text-center">Welcome {user.username}</h2> : null} */}
+        {/* {isLoggedIn ? <h2 class="text-center">Logged In</h2> : null} */}
+        <></>
+       
         
-        <>{isLoggedIn ? <> 
-        { isAdmin ? <Link to='/users'><Button variant="contained" size="small">Users</Button></Link> : null }
-        <Link to='/posts'><Button variant="contained" size="small">Posts</Button></Link>
-        <Link to='/createpost'><Button variant="contained" size="small">Create Post</Button></Link>
-        <Link to='/home'><Button variant="contained" size="small"> Home</Button></Link>
-        <Button variant="contained" size="small" onClick={logout}>Logout</Button>
-        </>:<>
-        <Link to='/login'><Button variant="contained" size="small">
-        Login</Button></Link>
-        <Link to='/register'><Button variant="contained" size="small">
-        Register</Button></Link> 
-        
-        </>}</>
-        {isLoggedIn ? null : <h2>Log Out Successful!</h2>  }
     </header>
 
     <Variants />
@@ -172,6 +223,7 @@ useEffect(()=>{
             <Route path= '/single-post/:postId'
                 element={<SinglePost 
                 user={user}
+                posts={posts}
                 isAdmin={isAdmin} 
                 navigate={navigate}
                 singlePost={singlePost}
@@ -182,10 +234,21 @@ useEffect(()=>{
                 element={<EditPost 
                 user={user} 
                 navigate={navigate}
-                editPost={editPost} />} />    
+                editPost={editPost} />} />
+
+            <Route path= '/nav'
+                element={<Navhead
+                isAdmin={isAdmin}
+                navigate={navigate}
+                setToken={setToken}
+                setIsLoggedIn={setIsLoggedIn}
+                isLoggedIn={isLoggedIn} 
+                logout={logout}/>} />
+
 
       
         </Routes>
+        <Foot />
         </>
     )
 }

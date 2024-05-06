@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from "react";
-import { Button, TextField } from '@mui/material';
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import { newPost, getAllPosts } from "../axios-services/posts";
 
 
@@ -36,7 +38,7 @@ export default function CreatePost({user, navigate}) {
         
         const getPosts = async () => {
             try {
-                const response = await getAllPosts(posts);
+                const response =  await getAllPosts(posts);
                 console.log(response.data);
                 setPosts(response.data.posts);
             } catch (error) {
@@ -46,7 +48,7 @@ export default function CreatePost({user, navigate}) {
         }
         
         navigate('/createpost')
-        getPosts();
+        getPosts(setPosts);
     }
     ,[])
     
@@ -56,23 +58,33 @@ export default function CreatePost({user, navigate}) {
             <h1>Create Post</h1>
         </div>
        
-    <section>
-        <h1>Create a post</h1>
-        <form onSubmit={handleSubmit}>
-        <TextField id="string"  variant="outlined"
-            type ='text'
-            placeholder="Title"
-            onChange={(ev)=> setTitle(ev.target.value)}
-          />
-        <TextField id="string" multiline="true"  variant="outlined"
-            type ='text'
-            placeholder="Create a post"
-            onChange={(ev)=> setContent(ev.target.value)}
-          />
-       
-            <Button  type='submit' variant='contained'size='small'>SUBMIT</Button>
-        </form>
-    </section>
+           
+        <Container>
+    <form onSubmit={handleSubmit}>
+      <Form.Label htmlFor="inputTitle">Title</Form.Label>
+      <Form.Control
+        type="text"
+        placeholder="Title"
+        id="inputTitle"
+        aria-describedby="titleHelpBlock"
+        onChange={(ev)=> setTitle(ev.target.value)}
+      />
+     
+      <Form.Label htmlFor="inputContent">Content</Form.Label>
+      <Form.Control
+      as="textarea"
+        type="text"
+        placeholder="Create a post"
+        id="inputContent"
+        aria-describedby="contentHelpBlock"
+        onChange={(ev)=> setContent(ev.target.value)}  
+      />
+      
+      
+      <Button type="submit" className="btn btn-primary">Submit</Button>
+      </form>
+    </Container>
+
 
 
 
@@ -84,3 +96,23 @@ export default function CreatePost({user, navigate}) {
                navigate('/userprofile');
               }}>Trash Routine
               </Button> */}
+
+
+        //       <section>
+        //       <h1>Create a post</h1>
+        //       <form onSubmit={handleSubmit}>
+        //       <TextField id="string"  variant="outlined"
+        //           type ='text'
+        //           placeholder="Title"
+        //           onChange={(ev)=> setTitle(ev.target.value)}
+        //         />
+        //       <TextField id="string" multiline="true"  variant="outlined"
+        //           type ='text'
+        //           placeholder="Create a post"
+        //           onChange={(ev)=> setContent(ev.target.value)}
+        //         />
+             
+        //           <Button  type='submit' variant='contained'size='small'>SUBMIT</Button>
+        //       </form>
+        //   </section>
+                  
