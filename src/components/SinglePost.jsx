@@ -1,19 +1,35 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useParams } from "react-router";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import { deletePost } from "../axios-services/posts";
+import { deletePost, getAllPosts} from "../axios-services/posts";
 
 
 
-export default function SinglePost({singlePost, navigate, setEditPost}) {
+export default function SinglePost({singlePost, navigate, setEditPost, posts, setPosts}) {
     const { postId } = useParams();
     console.log(postId)
     console.log(singlePost)
    
+    useEffect(() => {
+        
+      const getPosts = async () => {
+          try {
+              const response = await getAllPosts(posts);
+              console.log(response.data);
+              //setPosts(response.data.posts)
+          } catch (error) {
+              console.log('Error in getPosts function');
+              console.error(error);
+          }
+      }
+      
+      //navigate(`/single-post/${postId}`)
+      getPosts(setPosts);
+  },[])
 
   return (<>
-     <Card className="mt-5 ms-5 me-5" style={{ width: 'auto' }}>
+     <Card id="singlePostCard" className="mt-5 ms-5 me-5" style={{ width: 'auto' }}>
       <Card.Body>
         <Card.Title>{singlePost.title}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
@@ -29,6 +45,7 @@ export default function SinglePost({singlePost, navigate, setEditPost}) {
 
           <Button className="ms-3" variant="primary" size="sm" onClick ={ () => {
                 setEditPost(singlePost)
+               
                 navigate(`/edit-post/${postId}`)
            } }>Edit Post</Button>
 

@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {  Routes, Route, useNavigate } from "react-router-dom";
- import { Link } from "react-router-dom";
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
- import { getApiHealth } from "../axios-services/index";
+import { getApiHealth } from "../axios-services/index";
 import { getAllPosts } from "../axios-services/posts";
 
  import {
@@ -65,16 +64,19 @@ export default function App (){
         }
     }
 
-     function logout(){
+    function   logout(){
+
         try {
+            
         setToken("")
         setIsLoggedIn(false)
         window.localStorage.removeItem("token")
-        navigate("/login")
+        navigate(window.location.href="/login")
     } catch (error) {
         console.log('Error in logout function');
         console.error(error);
     }
+    
     }
      
      
@@ -107,31 +109,33 @@ useEffect(()=>{
     return(
     <>
     {isLoggedIn ? <> 
-        <Navbar bg="primary" sticky="top" data-bs-theme="dark" expand="lg">
+        <Navbar id="navLin"  sticky="top" data-bs-theme="dark" expand="lg">
         <Container>
-        <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+        <Navbar.Brand href="#home">CF</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-            { isAdmin ? <Nav.Link ><Link to='/users'>Users</Link></Nav.Link>: null }
-            <Nav.Link>< Link to='/home'>Home</Link></Nav.Link>
-            <Nav.Link><Link to='/posts'>Posts</Link></Nav.Link>
-            <Nav.Link><Link to='/createpost'>Create Post</Link></Nav.Link>
-            <Nav.Link ><Link onClick={logout}>Logout</Link></Nav.Link>
+            { isAdmin ?  <Nav.Link href="/users">Users</Nav.Link>: null }
+            <Nav.Link href="/home">Home</Nav.Link>
+            <Nav.Link href="/posts">Posts</Nav.Link>
+            <Nav.Link href="/createpost">Create Post</Nav.Link>
+            <Nav.Link  onClick={logout}>Log Out</Nav.Link>
+           
             </Nav>
         </Navbar.Collapse>
             
                 </Container>
             </Navbar>
             </>:<> 
-        <Navbar bg="primary" sticky="top" data-bs-theme="dark" expand="lg">
+        <Navbar id="navLout"  sticky="top" data-bs-theme="dark" expand="lg">
         <Container>
-        <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+        <Navbar.Brand href="#home">CF</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-            <Nav.Link><Link to='/login'>Login</Link></Nav.Link>
-            <Nav.Link><Link to='/register'>Register</Link></Nav.Link>
+            <Nav.Link href="/login">Login</Nav.Link>
+            <Nav.Link href="/register">Register</Nav.Link>
+           
             
             </Nav>
         </Navbar.Collapse>
@@ -147,9 +151,9 @@ useEffect(()=>{
         return (
             <>
             
-            <Navbar className="mt-5" bg="primary" data-bs-theme="dark" expand="lg">
+            <Navbar id="foot1" className="mt-5"  data-bs-theme="dark" expand="lg">
             <Container>
-              <Navbar.Brand>Brand text</Navbar.Brand>
+              <Navbar.Brand>&copy;CF</Navbar.Brand>
             </Container>
           </Navbar>
             
@@ -163,9 +167,9 @@ useEffect(()=>{
     <header>
         <Navhead /> 
         <></>
-        <h1 class="text-center">My App</h1>
-        {isLoggedIn ? <h2 class="text-center">Welcome {user.username}</h2> : null}
-        {isLoggedIn ? <h2 class="text-center">Logged In</h2> : null}
+        {/* <h1 class="text-center">My App</h1> */}
+        {/* {isLoggedIn ? <h2 class="text-center">Welcome {user.username}</h2> : null} */}
+        {/* {isLoggedIn ? <h2 class="text-center">Logged In</h2> : null} */}
         <></>
        
         
@@ -216,6 +220,7 @@ useEffect(()=>{
             <Route path= '/single-post/:postId'
                 element={<SinglePost 
                 user={user}
+                posts={posts}
                 isAdmin={isAdmin} 
                 navigate={navigate}
                 singlePost={singlePost}

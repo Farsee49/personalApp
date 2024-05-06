@@ -24,7 +24,7 @@ export default function Posts({
         
         const getPosts = async () => {
             try {
-                const response = await getAllPosts(posts);
+                const response =  await getAllPosts(posts);
                 console.log(response.data);
                 setPosts(response.data.posts);
             } catch (error) {
@@ -34,8 +34,8 @@ export default function Posts({
         }
         
         navigate('/posts')
-        getPosts();
-    },[])
+        getPosts(posts);
+    },[setPosts])
     
     function PostTitle({ title }) {
         return <h2 class="text-center">{title}</h2>;
@@ -52,7 +52,7 @@ export default function Posts({
             <h1>Posts</h1>
             {posts.map(post =>
                 <Fragment key={post.id}>
-    <Card className="mt-5 ms-5 me-5" style={{ width: 'auto' }}>
+    <Card id="postcard1" className="mt-5 ms-5 me-5" style={{ width: 'auto' }}>
       <Card.Body>
         <Card.Title><PostTitle title={post.title} />Post</Card.Title>
         {/* <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle> */}

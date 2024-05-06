@@ -47,24 +47,24 @@ export default function Login({
     
     return(
         <>
-       <div class="row">
-        <h1 class="text-center">User Login</h1>
-        <div class="col-6 offset-3">
+       <div className="row">
+        <h1 className="text-center">User Login</h1>
+        <div className="col-6 offset-3">
             <form onSubmit={handleSubmit}>
-                <div class="mb-3">
-                    <label class="form-label" for="title">Username</label>
-                    <input class="form-control" type="text" id="username" name=""
+                <div className="mb-3">
+                    <label className="form-label" htmlFor="title">Username</label>
+                    <input className="form-control" type="text" id="username" name=""
                     onChange={(ev) => setUsername(ev.target.value)}></input>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label" for="title">Password</label>
-                    <input class="form-control" type="text" id="title" name=""
+                <div className="mb-3">
+                    <label className="form-label" htmlFor="title">Password</label>
+                    <input className="form-control" type="text" id="title" name=""
                    onChange={(ev) => setPassword(ev.target.value)} ></input>
                 </div>
                
                 
-                <div class="mb-3">
-                    <Button class=" btn btn-primary" type="submit">Login</Button>
+                <div className="mb-3">
+                    <Button className=" btn btn-primary" type="submit">Login</Button>
                 </div>
             </form>
               

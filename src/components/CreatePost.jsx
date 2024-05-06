@@ -38,7 +38,7 @@ export default function CreatePost({user, navigate}) {
         
         const getPosts = async () => {
             try {
-                const response = await getAllPosts(posts);
+                const response =  await getAllPosts(posts);
                 console.log(response.data);
                 setPosts(response.data.posts);
             } catch (error) {
@@ -48,7 +48,7 @@ export default function CreatePost({user, navigate}) {
         }
         
         navigate('/createpost')
-        getPosts();
+        getPosts(setPosts);
     }
     ,[])
     
