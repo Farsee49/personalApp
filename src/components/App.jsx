@@ -13,7 +13,8 @@ import { getAllPosts } from "../axios-services/posts";
     CreatePost,
     EditPost,
     SinglePost,
-    SingleUser
+    SingleUser,
+    Variants
  } from "./"
 import { getCurrentUser } from "../axios-services/users";
 
@@ -123,6 +124,8 @@ useEffect(()=>{
         </>}</>
         {isLoggedIn ? null : <h2>Log Out Successful!</h2>  }
     </header>
+
+    <Variants />
        
 
         <Routes>

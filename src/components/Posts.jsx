@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect} from "react";
 //import { Link } from "react-router-dom";
 import  { Button } from '@mui/material';
 import {   getAllPosts } from "../axios-services/posts";
+import Skeleton from '@mui/material/Skeleton';
 
 
 
@@ -46,7 +47,7 @@ export default function Posts({
     
 //console.log(posts)
 
-    return(<>
+    return(<>19
         
             <h1>Posts</h1>
            
@@ -60,6 +61,21 @@ export default function Posts({
      }}>SinglePost</Button>
     </Fragment>
     )}
+<Skeleton variant="rectangular" animation="false" width={210} height={118} />
+{/* {
+        item ? (
+          <img
+            style={{
+              width: 210,
+              height: 118,
+            }}
+            alt={item.title}
+            src={item.src}
+          />
+        ) : (
+            <Skeleton variant="rectangular" width={210} height={118} />
+        )
+      } */}
             
   
    </> )

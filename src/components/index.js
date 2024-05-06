@@ -11,3 +11,4 @@ export { default as CreatePost } from './CreatePost';
 export { default as SinglePost } from './SinglePost';
 export { default as SingleUser } from './SingleUser';
 export { default as EditPost } from './EditPost';
+export { default as Variants } from './Skeleton';
