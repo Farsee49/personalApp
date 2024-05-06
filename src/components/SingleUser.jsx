@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router";
-import  { Button } from '@mui/material';
+
 import { deleteUser } from "../axios-services/users";
 
 
@@ -15,10 +15,10 @@ export default function SingleUser({singleUser, navigate}) {
             <h3>Username: {singleUser.username}</h3>
             <h3>Name: {singleUser.name}</h3>
             <h3>Location: {singleUser.location}</h3>
-           <><Button variant='outlined' size='small' onClick ={ () => {
+           <><button variant='outlined' size='small' onClick ={ () => {
                    deleteUser(userId);
                     navigate(`/users`)
-                }}>Delete User</Button></>
+                }}>Delete User</button></>
         </div>
     </>)
 }

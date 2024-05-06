@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Fragment } from "react";
 import { getAllUsers } from "../axios-services/users";
-import { Button } from '@mui/material';
+
 
 
 
@@ -46,10 +46,10 @@ console.log(users)
         {users.map(user =>
             <Fragment key={user.id}>
                 <UserTitle name={user.username} />
-                <Button variant='outlined' size='small' onClick ={ () => {
+                <button variant='outlined' size='small' onClick ={ () => {
                     setSingleUser(user)
                     navigate(`/single-user/${user.id}`)
-                }}>User Info</Button>
+                }}>User Info</button>
             </Fragment>    
         )}
    </> )
