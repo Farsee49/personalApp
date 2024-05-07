@@ -11,3 +11,6 @@ export { default as CreatePost } from './CreatePost';
 export { default as SinglePost } from './SinglePost';
 export { default as SingleUser } from './SingleUser';
 export { default as EditPost } from './EditPost';
+export { default as Books } from './Books';
+export { default as ViewBook } from './ViewBook';
+export { default as AddBook } from './AddBook';

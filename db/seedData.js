@@ -5,7 +5,8 @@ const client = require('./client');
 // require in the database adapter functions as you write them (createUser, createActivity...)
 const { 
     createUser,
-    createPost
+    createPost,
+    createBook
    } = require('./');
 
    async function dropTables() {
@@ -13,6 +14,7 @@ const {
         console.log('STARTING TO DROP TABLES....');
 
         await client.query(`
+        DROP TABLE IF EXISTS books;
         DROP TABLE IF EXISTS posts;
         DROP TABLE IF EXISTS users;
         `);
@@ -32,7 +34,7 @@ const {
             CREATE TABLE users (
                 id SERIAL PRIMARY KEY,
                 username VARCHAR(255) UNIQUE NOT NULL,
-                password VARCHAR(255) NOT NULL,
+                password VARCHAR(255) ,
                 name VARCHAR(255) NOT NULL,
                 location VARCHAR(255) NOT NULL
                  );
@@ -44,6 +46,15 @@ const {
                 content TEXT NOT NULL,
                 active BOOLEAN DEFAULT true
             );
+
+            CREATE TABLE books (
+                id SERIAL PRIMARY KEY,
+                title VARCHAR(255) NOT NULL,
+                author VARCHAR(255) NOT NULL,
+                year INTEGER,
+                imageurl TEXT 
+            );
+            
 
             `);
         } catch (error) {
@@ -92,6 +103,26 @@ const {
     };
 
 
+      async function createInitialBooks() {
+        console.log("Starting to create books...")
+        try {
+          const booksToCreate = [
+            { title: "The Great Gatsby", author: "F. Scott Fitzgerald", year: 1925, imageurl: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1353640223i/16165773.jpg"},
+            { title: "To Kill a Mockingbird", author: "Harper Lee", year: 1960, imageurl: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1522356687i/38359009.jpg"},
+            { title: "The Catcher in the Rye", author: "J.D. Salinger", year: 1951, imageurl: "https://cdn.britannica.com/94/181394-050-2F76F7EE/Reproduction-cover-edition-The-Catcher-in-the.jpg"}
+          ]
+          const books = await Promise.all(booksToCreate.map(createBook))
+
+          console.log("Books created:")
+          console.log(books)
+          console.log("Finished creating books!")
+        } catch (error) {
+          console.error("Error creating books!")
+          throw error
+        }
+      }
+
+
         async function rebuildDB() {
           console.log('STARTING TO REBUILD DATABASE....');
             try{
@@ -99,6 +130,7 @@ const {
                 await createTables();
                 await createInitialUsers();
                 await createInitialPosts();
+                await createInitialBooks();
             } catch (error) {
                 console.error('ERROR REBUILDING DATABASE!!!', error);
                 throw error;

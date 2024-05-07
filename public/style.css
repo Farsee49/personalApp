@@ -26,3 +26,18 @@
 #foot1 {
     background-color: rgb(26, 87, 52);
 }
+
+#bookCardImg {
+    width: 200px;
+    height: 300px;
+   
+    
+}
+
+#booksCard {
+    background-color: rgb(250, 98, 250);
+    
+}
+#booksCardBody {
+    background-color: rgb(72, 31, 185);
+}

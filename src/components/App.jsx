@@ -10,12 +10,15 @@ import { getAllPosts } from "../axios-services/posts";
     Login,
     Users,
     Posts,
+    Books,
     Home,
     Register,
     CreatePost,
     EditPost,
     SinglePost,
-    SingleUser
+    SingleUser,
+    ViewBook,
+    AddBook
  } from "./"
 import { getCurrentUser } from "../axios-services/users";
 
@@ -27,6 +30,8 @@ export default function App (){
     const [token, setToken] = useState('');
     const [posts, setPosts] = useState([]);
     const [singlePost, setSinglePost] = useState('');
+    const [books, setBooks] = useState([]);
+    const [singleBook, setSingleBook] = useState('');
     const [user, setUser] = useState('');
     const [singleUser, setSingleUser] = useState('');
     const [editPost, setEditPost] = useState('');
@@ -34,10 +39,10 @@ export default function App (){
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const navigate = useNavigate();
    
-    console.log(isLoggedIn)
-    console.log(user)
-    console.log(isAdmin)
-    console.log(posts)
+    // console.log(isLoggedIn)
+    // console.log(user)
+    // console.log(isAdmin)
+    // console.log(posts)
 
  
    
@@ -119,6 +124,8 @@ useEffect(()=>{
             <Nav.Link href="/home">Home</Nav.Link>
             <Nav.Link href="/posts">Posts</Nav.Link>
             <Nav.Link href="/createpost">Create Post</Nav.Link>
+            <Nav.Link href="/books">Books</Nav.Link>
+            <Nav.Link href="/add-book">Add Book</Nav.Link>
             <Nav.Link  onClick={logout}>Log Out</Nav.Link>
            
             </Nav>
@@ -205,7 +212,10 @@ useEffect(()=>{
                 setSingleUser={setSingleUser} />} />
 
             <Route path= '/posts'
-                element={<Posts user={user} 
+                element={<Posts 
+                user={user}
+                posts={posts}
+                setPosts={setPosts} 
                 navigate={navigate}
                 singlePost={singlePost} 
                 setSinglePost={setSinglePost}/>} />
@@ -241,6 +251,24 @@ useEffect(()=>{
                 setIsLoggedIn={setIsLoggedIn}
                 isLoggedIn={isLoggedIn} 
                 logout={logout}/>} />
+
+            <Route path= '/books'
+                element={<Books
+                books={books}
+                setBooks={setBooks} 
+                navigate={navigate}
+                singleBook={singleBook}
+                setSingleBook={setSingleBook}/>} />
+
+            <Route path= '/view-book/:bookId'
+                element={<ViewBook
+                singleBook={singleBook}
+                setSingleBook={setSingleBook} />} />
+
+            <Route path= '/add-book'
+                element={<AddBook
+                navigate={navigate} />} />
+           
 
 
       

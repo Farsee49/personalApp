@@ -65,8 +65,10 @@ export default function EditPost({editPost, navigate}) {
         onChange={(ev)=> setNewContent(ev.target.value)}  
       />
       
+      <Button className="mt-3" variant="primary" size="sm" >Update Post</Button>
+      <Button className="ms-3 mt-3" variant="primary" size="sm" onClick={() => {
+          navigate(`/single-post/${editPost.id}`)}}>Cancel</Button>
       
-      <Button type="submit" className="btn btn-primary">Submit</Button>
       </form>
     </Container>
 

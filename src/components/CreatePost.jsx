@@ -81,11 +81,11 @@ export default function CreatePost({user, navigate}) {
       />
       
       
-      <Button type="submit" className="btn btn-primary">Submit</Button>
+      <Button type="submit" className="mt-3" variant="primary" size="sm">Create Post</Button>
       </form>
     </Container>
 
-
+    
 
 
     </>)

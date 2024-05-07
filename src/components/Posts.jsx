@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect} from "react";
+import React, { Fragment, useEffect} from "react";
 //import { Link } from "react-router-dom";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -9,11 +9,13 @@ import {   getAllPosts } from "../axios-services/posts";
 
 export default function Posts({
     user,
+    posts,
+    setPosts,
     navigate,
     singlePost,
-   setSinglePost
+    setSinglePost
     }) {
-    const [posts, setPosts] = useState([]);
+    
    
     
    
@@ -38,11 +40,11 @@ export default function Posts({
     },[setPosts])
     
     function PostTitle({ title }) {
-        return <h2 class="text-center">{title}</h2>;
+        return <h2 className="text-center">{title}</h2>;
       }
       
       function PostBody({ body }) {
-        return <p class="text-center">{body}</p>;
+        return <p className="text-center">{body}</p>;
       }
     
 //console.log(posts)
@@ -56,9 +58,9 @@ export default function Posts({
       <Card.Body>
         <Card.Title><PostTitle title={post.title} />Post</Card.Title>
         {/* <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle> */}
-        <Card.Text>
+       
         <PostBody body={post.content} />
-        </Card.Text>
+       
         {/* <Card.Link href="#">Card Link</Card.Link>
         <Card.Link href="#">Another Link</Card.Link> */}
         <Button variant="primary" size="sm" onClick ={ () => {

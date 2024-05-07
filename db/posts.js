@@ -80,7 +80,8 @@ async function updatePost({postId, ...fields}) {
       (key, index) => `"${key}"=$${index + 1}`
       ).join(',') 
       try {
-      if (setString.length > 0){
+      if (setString.length > 0)
+        {
         console.log('setString:', setString)
         await client.query(`
         UPDATE posts
