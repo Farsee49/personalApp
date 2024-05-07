@@ -181,6 +181,8 @@ useEffect(()=>{
        
         
     </header>
+
+    <Variants />
        
 
         <Routes>

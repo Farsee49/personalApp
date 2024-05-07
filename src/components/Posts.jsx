@@ -3,6 +3,7 @@ import React, { Fragment, useEffect} from "react";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import {   getAllPosts } from "../axios-services/posts";
+import Skeleton from '@mui/material/Skeleton';
 
 
 
@@ -49,7 +50,7 @@ export default function Posts({
     
 //console.log(posts)
 
-    return(<>
+    return(<>19
         
             <h1>Posts</h1>
             {posts.map(post =>
